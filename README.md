@@ -51,8 +51,8 @@ A desktop application for detecting source code plagiarism across multiple progr
 
 1. Clone the repository
 ```
-git clone https://github.com/THANOPOULOS/SoftPlag.git
-cd SoftPlag
+git clone https://github.com/THANOPOULOS/soft_plag.git
+cd soft_plag
 ```
 
 2. Install dependencies
