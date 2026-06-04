@@ -4,8 +4,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 
-
+#paragei to heatmap
 def render_figure(result, figsize=(11, 9)) -> plt.Figure:
+    #dymiourgia figure kai elenhos apotelesmaton
     n = len(result.files)
     fig, ax = plt.subplots(figsize=figsize)
 
@@ -15,19 +16,19 @@ def render_figure(result, figsize=(11, 9)) -> plt.Figure:
         ax.set_axis_off()
         fig.tight_layout()
         return fig
-
+    #proetimasia tags
     matrix = result.similarity_matrix
     max_label = 18
     labels = [
         (f[:max_label] + "…") if len(f) > max_label else f
         for f in result.files
     ]
-
+#annotations 
     annot = n <= 20
     fmt = ".2f" if annot else ""
-
+#dymiourgia mask diagoiniou
     mask = np.eye(n, dtype=bool)
-
+#1o heatmap pragmarika dedomena
     sns.heatmap(
         matrix,
         ax=ax,
@@ -44,7 +45,7 @@ def render_figure(result, figsize=(11, 9)) -> plt.Figure:
         cbar_kws={"label": "Combined Similarity Score", "shrink": 0.8},
         square=True,
     )
-
+#2o heatmap gri diagonios
     sns.heatmap(
         matrix,
         ax=ax,
@@ -59,7 +60,7 @@ def render_figure(result, figsize=(11, 9)) -> plt.Figure:
         linewidths=0.4 if n <= 30 else 0.0,
         linecolor="#cccccc",
     )
-
+#decoration tou graph
     ax.set_title(
         f"File Similarity Heatmap  [{result.language}]",
         fontsize=14, fontweight="bold", pad=12,

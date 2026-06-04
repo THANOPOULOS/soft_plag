@@ -8,7 +8,7 @@ from PySide6.QtGui import QPalette, QColor
 
 from gui.main_window import MainWindow
 
-
+#private method pou orizei to xromatiko thema oliklirhs ths efarmoghs
 def _apply_palette(app: QApplication):
     app.setStyle("Fusion")
     palette = QPalette()
@@ -27,7 +27,7 @@ def _apply_palette(app: QApplication):
     palette.setColor(QPalette.ColorRole.HighlightedText, QColor("#ffffff"))
     app.setPalette(palette)
 
-
+#kyria method pou ekkinei oloklhrh thn efarmogh
 def main():
     app = QApplication(sys.argv)
     app.setApplicationName("SoftPlag")

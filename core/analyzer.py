@@ -20,6 +20,8 @@ class PairResult:
     lcs: float
     winnowing: float
     combined: float
+    source_a: str = ""
+    source_b: str = ""
 
 
 @dataclass
@@ -227,6 +229,8 @@ class Analyzer:
                     lcs=l_score,
                     winnowing=w_score,
                     combined=c_score,
+                    source_a=tokenized[i].raw_source,
+                    source_b=tokenized[j].raw_source,
                 ))
 
                 pair_count += 1

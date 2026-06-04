@@ -16,14 +16,14 @@ try:
     _HAS_SKLEARN = True
 except ImportError:
     _HAS_SKLEARN = False
-
+#10 diaforetiaka hromata gia ta clusters
 _CLUSTER_COLORS = [
     "#e41a1c", "#377eb8", "#4daf4a", "#984ea3",
     "#ff7f00", "#a65628", "#f781bf", "#999999",
     "#17becf", "#bcbd22",
 ]
 
-
+#kaleitai apo to results panel organonei olh tin diadikaisia clustering kai dimiourgei to figure me ta 2 subplots (graph kai mds)
 def render_figure(result, threshold: float = 0.50, figsize=(14, 7)) -> plt.Figure:
     n = len(result.files)
     fig = plt.figure(figsize=figsize)
@@ -53,7 +53,7 @@ def render_figure(result, threshold: float = 0.50, figsize=(14, 7)) -> plt.Figur
     fig.tight_layout()
     return fig
 
-
+#apofasizei se poio cluster anikei kathe arheio
 def _compute_clusters(matrix: np.ndarray, n: int) -> list:
     if not _HAS_SKLEARN or n < 2:
         return list(range(n))
@@ -71,7 +71,7 @@ def _compute_clusters(matrix: np.ndarray, n: int) -> list:
     except Exception:
         return list(range(n))
 
-
+#zografizei to graph diktiou ston aristero aksona
 def _draw_network(ax, matrix, files, node_colors, threshold, language):
     if not _HAS_NX:
         ax.text(0.5, 0.5, "networkx not installed", ha="center", va="center",
@@ -118,7 +118,7 @@ def _draw_network(ax, matrix, files, node_colors, threshold, language):
     ax.set_title(f"Similarity Graph (threshold ≥ {threshold:.0%})", fontsize=11)
     ax.set_axis_off()
 
-
+#zografizei to scatter plot me MDS ston deksio aksona
 def _draw_mds(ax, matrix, files, node_colors, cluster_labels, language):
     n = len(files)
     short = [_short(f) for f in files]
@@ -167,7 +167,7 @@ def _draw_mds(ax, matrix, files, node_colors, cluster_labels, language):
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
 
-
+#mikrenei to filename gia na xwraei sto graph kai to scatter plot
 def _short(filename: str, max_len: int = 14) -> str:
     stem = filename.rsplit(".", 1)[0] if "." in filename else filename
     return (stem[:max_len] + "…") if len(stem) > max_len else stem

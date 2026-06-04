@@ -148,7 +148,7 @@ class _DetailsTab(QWidget):
         dlg = _DiffDialog(pr, self)
         dlg.show()
 
-
+#emfanizei ena floating window to opoio deihnei to source code ton dio arheiwn pou sygkrinontai se ena pair result, mazi me ta scores kai to risk level gia auto to pair
 class _DiffDialog(QWidget):
 
     def __init__(self, pair_result, parent=None):
@@ -169,8 +169,8 @@ class _DiffDialog(QWidget):
 
         splitter = QSplitter(Qt.Orientation.Horizontal)
 
-        for path, title in [(pair_result.path_a, pair_result.file_a),
-                             (pair_result.path_b, pair_result.file_b)]:
+        for title, source in [(pair_result.file_a, pair_result.source_a),
+                               (pair_result.file_b, pair_result.source_b)]:
             frame = QFrame()
             vl = QVBoxLayout(frame)
             vl.setContentsMargins(2, 2, 2, 2)
@@ -181,11 +181,7 @@ class _DiffDialog(QWidget):
             editor.setReadOnly(True)
             editor.setFont(QFont("Consolas", 10))
             editor.setLineWrapMode(QTextEdit.LineWrapMode.NoWrap)
-            try:
-                with open(path, "r", encoding="utf-8", errors="replace") as fh:
-                    editor.setPlainText(fh.read())
-            except Exception as e:
-                editor.setPlainText(f"[Could not read file: {e}]")
+            editor.setPlainText(source if source else "[Source not available]")
             vl.addWidget(editor)
             splitter.addWidget(frame)
 

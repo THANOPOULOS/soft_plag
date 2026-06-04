@@ -3,31 +3,31 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-
+#paragei to histogram katanomhs twn vatmon omoiothtas
 def render_figure(result, bins: int = 20, figsize=(10, 6)) -> plt.Figure:
     fig, ax = plt.subplots(figsize=figsize)
 
     scores = [pr.combined for pr in result.pair_results]
-
+#elenhos adeion apotelesmatwn
     if not scores:
         ax.text(0.5, 0.5, "No pairs to display.\nSelect a folder with at least 2 files.",
                 ha="center", va="center", transform=ax.transAxes, fontsize=13, color="gray")
         ax.set_axis_off()
         fig.tight_layout()
         return fig
-
+#dymiourgia bins kai horismos scores
     edges = np.linspace(0.0, 1.0, bins + 1)
     low_scores    = [s for s in scores if s < 0.40]
     medium_scores = [s for s in scores if 0.40 <= s < 0.70]
     high_scores   = [s for s in scores if s >= 0.70]
-
+#dymiourgia histogram me 3 hromata
     ax.hist(low_scores,    bins=edges, color="#4caf50", alpha=0.85, label="Low (<40%)",    edgecolor="white", linewidth=0.6)
     ax.hist(medium_scores, bins=edges, color="#ff9800", alpha=0.85, label="Medium (40–70%)", edgecolor="white", linewidth=0.6)
     ax.hist(high_scores,   bins=edges, color="#f44336", alpha=0.85, label="High (≥70%)",   edgecolor="white", linewidth=0.6)
-
+#katakorifes diakekomenes grammes thresholds
     ax.axvline(0.40, color="#e65100", linestyle="--", linewidth=1.6, label="Medium threshold (0.40)")
     ax.axvline(0.70, color="#b71c1c", linestyle="--", linewidth=1.6, label="High threshold (0.70)")
-
+#keimeno sinopshs
     total = len(scores)
     n_high = len(high_scores)
     n_med  = len(medium_scores)
@@ -38,6 +38,7 @@ def render_figure(result, bins: int = 20, figsize=(10, 6)) -> plt.Figure:
         f"Medium: {n_med} ({100*n_med/total:.0f}%)  "
         f"Low: {n_low} ({100*n_low/total:.0f}%)"
     )
+    #decoration tou graph
     ax.set_title(f"Similarity Score Distribution  [{result.language}]",
                  fontsize=14, fontweight="bold")
     ax.set_xlabel("Combined Similarity Score", fontsize=11)
